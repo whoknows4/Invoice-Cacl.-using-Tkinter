@@ -1,13 +1,49 @@
 from tkinter import *
+from tkinter import ttk
 import datetime as dt
 
 # grid() helps to arrange widgets in table like structure
 
 window = Tk()
-window.geometry("800x800")
+window.geometry("800x1000")
 window.title("TAX INVOICE")
 
 logo = PhotoImage(file="icon.png")
+
+invoice_ = []
+
+def addItem():
+    s_no = sno_entry.get()
+    descrip = desc_entry.get()
+    quantity = int(quan_entry.get())
+    rte = float(rate_entry.get())
+    pr = per_entry.get()
+    amount = quantity * rte
+
+    tree.insert("", END, values=(s_no, descrip, quantity, rte, pr, f"{amount:.2f}"))
+
+    invoice_.append(amount)
+    
+    update_total()
+
+    sno_entry.delete(0, END)   
+    desc_entry.delete(0, END)
+    quan_entry.delete(0, END)
+    rate_entry.delete(0, END)
+    per_entry.delete(0, END)
+
+def update_total():
+    amt_total = sum(invoice_)
+    cgst = amt_total * 0.09
+    sgst = amt_total * 0.09
+    total = amt_total + cgst + sgst
+
+    amt.config(text=f"Sub-Total: {amt_total:.2f}")
+    cgst_tag.config(text=f"CGST 9%: {cgst:.2f}")
+    sgst_tag.config(text=f"SGST 9%: {sgst:.2f}")
+    total_tag.config(text=f"TOTAL:  {total:.2f}")
+
+
 
 # tax invoice
 invoice = Label(window, text="(TAX INVOICE)", font=("Arial", 15))     # tax invoice 
@@ -59,5 +95,70 @@ inum = Label(window, text="Invoice No. ")
 inum.place(x=540, y=220)
 inv_label = Entry(window, width=3)
 inv_label.place(x=620, y=220)
+
+# user input fields
+# sl.no. field
+sno = Label(window, text="Sl.No.")
+sno.place(x=10, y=270)
+
+sno_entry = Entry(window, width=3)
+sno_entry.place(x=10, y=290)
+
+# description field
+desc = Label(window, text="Description")
+desc.place(x=60, y=270)
+
+desc_entry = Entry(window, width=25)
+desc_entry.place(x=60, y=290)
+
+# quantity
+quan = Label(window, text="Quantity")
+quan.place(x=280, y=270)
+
+quan_entry = Entry(window, width=3)
+quan_entry.place(x=280, y=290)
+
+# rate
+rate = Label(window, text="Rate")
+rate.place(x=350, y=270)
+
+rate_entry = Entry(window, width=12)
+rate_entry.place(x=350, y=290)
+
+# per
+per = Label(window, text="Per")
+per.place(x=470, y=270)
+
+per_entry = Entry(window, width=15)
+per_entry.place(x=470, y=290)
+
+# add button
+add_button = Button(window, text="Ad Item", command=addItem)
+add_button.place(x=660, y=290)
+
+# treeview function 
+columns = ("Sl.No.", "Description", "Quantity", "Rate", "Per", "Amount")
+tree = ttk.Treeview(window, columns=columns, show="headings", height=10)
+for col in columns:
+    tree.heading(col, text=col)
+    tree.column(col, anchor="center", width=20)
+
+tree.place(x=10, y=350, width=780, height=350)
+
+# sub total
+amt = Label(window, text="Sub-Total", font=("bold"))
+amt.place(x=580, y=700)
+
+# cgst
+cgst_tag = Label(window, text="CGST 9%", font=("bold"))
+cgst_tag.place(x=580, y=720)
+
+# sgst
+sgst_tag = Label(window, text="SGST 9%", font=("bold"))
+sgst_tag.place(x=580, y=740)
+
+# total
+total_tag = Label(window, text="TOTAL", font=("bold"))
+total_tag.place(x=580, y=760)
 
 window.mainloop()
