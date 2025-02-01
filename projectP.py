@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from num2words import num2words
 import datetime as dt
 
 # grid() helps to arrange widgets in table like structure
@@ -42,7 +43,10 @@ def update_total():
     cgst_tag.config(text=f"CGST 9%: {cgst:.2f}")
     sgst_tag.config(text=f"SGST 9%: {sgst:.2f}")
     total_tag.config(text=f"TOTAL:  {total:.2f}")
-
+    
+    only_int = int(total)
+    words = num2words(only_int).upper()
+    n2w_label.config(text=f" {words:}")
 
 
 # tax invoice
@@ -146,19 +150,71 @@ for col in columns:
 tree.place(x=10, y=350, width=780, height=350)
 
 # sub total
-amt = Label(window, text="Sub-Total", font=("bold"))
+amt = Label(window, text="Sub-Total: ", font=("Arial", 13, "bold"))
 amt.place(x=580, y=700)
 
 # cgst
-cgst_tag = Label(window, text="CGST 9%", font=("bold"))
+cgst_tag = Label(window, text="CGST 9%: ", font=("Arial", 13, "bold"))
 cgst_tag.place(x=580, y=720)
 
 # sgst
-sgst_tag = Label(window, text="SGST 9%", font=("bold"))
+sgst_tag = Label(window, text="SGST 9%: ", font=("Arial", 13, "bold"))
 sgst_tag.place(x=580, y=740)
 
 # total
-total_tag = Label(window, text="TOTAL", font=("bold"))
+total_tag = Label(window, text="TOTAL: ", font=("Arial", 13, "bold"))
 total_tag.place(x=580, y=760)
+
+# number to word
+n2w = Label(window, text="In Words: ", font=("Arial",15 ,"bold"))
+n2w.place(x=10, y=720)
+
+n2w_label = Label(window, text="", font=("Arial", 12, "bold"))
+n2w_label.place(x=10, y=750)
+
+# last label entries
+please = Label(window, text="Please ackowledge the receipt of the invoices and kindly release the payment at the earliest and oblige.", font=("Arial", 10))
+please.place(x=10, y=790)
+
+terms = Label(window, text="Terms & Conditions :", font=("Arial", 10, "bold"))
+terms.place(x=10, y=810)
+
+alll = Label(window, text="• All payments are to be made  to RK ARTS by  Cheque/DD(Crossed Account Payee Only)", font=("Arial", 10))
+alll.place(x=10, y=830)
+
+iner = Label(window, text="• Interest will be charged @ 2% per month after the due date", font=("Arial", 10))
+iner.place(x=10, y=850)
+
+# firm bank detals
+firm = Label(window, text="Firm Bank Details", font=("Arial", 12, "bold"))
+firm.place(x=10, y=880)
+
+ac = Label(window, text="A/C Name :", font=("Arial", 12))
+ac.place(x=10, y=900)
+ac_ = Label(window, text="RK ARTS", font=("Arial", 12, "bold"))
+ac_.place(x=100, y=900)
+
+acno = Label(window, text="A/C No      :", font=("Arial", 12))
+acno.place(x=10, y=920)
+acno_ = Label(window, text="5742085338", font=("Arial", 12, "bold"))
+acno_.place(x=100, y=920)
+
+benk = Label(window, text="Bank          :", font=("Arial", 12))
+benk.place(x=10, y=940)
+benk_ = Label(window, text="CENTRAL BANK DHARWAD", font=("Arial", 12, "bold"))
+benk_.place(x=100, y=940)
+
+ifs = Label(window, text="IFS CODE :", font=("Arial", 12))
+ifs.place(x=10, y=960)
+ifs_ = Label(window, text="CBIN0283371", font=("Arial", 12, "bold"))
+ifs_.place(x=100, y=960)
+
+subj = Label(window, text="Subject to Dharwad Jurisdiction", font=("Arial", 10))
+subj.place(x=300, y=980)
+
+fa = Label(window, text="For: RK arts", font=("Arial", 13, "bold"))
+fa.place(x=640, y=840)
+fa_ = Label(window, text="Proprietor", font=("Arial", 10, "bold"))
+fa_.place(x=660, y=910)
 
 window.mainloop()
