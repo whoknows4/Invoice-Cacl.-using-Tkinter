@@ -156,7 +156,7 @@ def export_to_pdf():
         pdf.cell(0, 10, txt="IFS Code: CBIN0283371", ln=True, align="L")
 
         pdf.set_font("TimesNewRomanB", size=12)
-        pdf.cell(100, 10, txt="For: RK Arts", ln=False, align="R")
+        pdf.cell(0, 20, txt="For: RK Arts", ln=False, align="R")
         pdf.cell(0, 10, txt="Proprietor", ln=True, align="R")  
 
 
