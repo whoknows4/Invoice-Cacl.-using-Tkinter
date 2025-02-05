@@ -208,13 +208,16 @@ venue.place(x=10, y=220)
 
 # label to display date
 date = dt.datetime.now()
-ddate = Label(window, text=f"Date: {date:%b-%d-20%y}")
-ddate.place(x=670, y=220)
+ddate = Label(window, text=f"Date: ")
+ddate.place(x=660, y=220)
+
+ddddate = Entry(window, width=10)
+ddddate.place(x=700, y=220)
 
 # invoice number 
 invoice_number = get_next_invoice_number()
 inv_label = Label(window, text=f"Invoice No: {invoice_number}", font=("Arial", 10))
-inv_label.place(x=540, y=220)
+inv_label.place(x=560, y=220)
 
 # user input fields
 # sl.no. field
