@@ -82,10 +82,9 @@ def export_to_pdf():
 
         pdf.set_font("TimesNewRomanB", size=25)
         pdf.cell(150, 10, txt="RK Arts", ln=False, align="R")
-        pdf.set_font("TimesNewRoman", size=10) 
-        pdf.cell(0, 10, txt="", ln=True)
-
-    
+        
+        pdf.set_font("TimesNewRoman", size=12) 
+        pdf.cell(0, 10, txt="", ln=True) 
         pdf.cell(150, 10, txt="356 A1A 4B Hosayallapur Road", ln=False, align="R")
         pdf.cell(0, 5, txt="", ln=True)  
         pdf.cell(150, 10, txt="Ramnagar, Dharwad", ln=False, align="R")
@@ -125,39 +124,51 @@ def export_to_pdf():
             pdf.cell(20, 10, txt=str(item[3]), border=1, align="C")
             pdf.cell(20, 10, txt=str(item[4]), border=1, align="C")
             pdf.cell(30, 10, txt=str(item[5]), border=1, ln=True, align="C")
-
+            
+        pdf_width = 210
+        table_width = 25 + 30  
+        start_x = pdf_width - table_width - 20
         pdf.set_font("TimesNewRomanB", size=12)
-        pdf.cell(160, 10, txt="Sub-Total:", border=0, align="R")
-        pdf.cell(30, 10, txt=amt.cget("text").split(": ")[1], border=0, ln=True, align="C")
-        pdf.cell(160, 10, txt="CGST 9%:", border=0, align="R")
-        pdf.cell(30, 10, txt=cgst_tag.cget("text").split(": ")[1], border=0, ln=True, align="C")
-        pdf.cell(160, 10, txt="SGST 9%:", border=0, align="R")
-        pdf.cell(30, 10, txt=sgst_tag.cget("text").split(": ")[1], border=0, ln=True, align="C")
-        pdf.cell(160, 10, txt="TOTAL:", border=0, align="R")
-        pdf.cell(30, 10, txt=total_tag.cget("text").split(": ")[1], border=0, ln=True, align="C")
-
+        
+        pdf.set_x(start_x) 
+        pdf.cell(25, 10, txt="Sub-Total:", border=1, align="R")
+        pdf.cell(30, 10, txt=amt.cget("text").split(": ")[1], border=1, ln=True, align="R")
+        
+        pdf.set_x(start_x)  
+        pdf.cell(25, 10, txt="CGST 9%:", border=1, align="R")
+        pdf.cell(30, 10, txt=cgst_tag.cget("text").split(": ")[1], border=1, ln=True, align="R")
+        
+        pdf.set_x(start_x) 
+        pdf.cell(25, 10, txt="SGST 9%:", border=1, align="R")
+        pdf.cell(30, 10, txt=sgst_tag.cget("text").split(": ")[1], border=1, ln=True, align="R")
+        
+        pdf.set_x(start_x)  
+        pdf.cell(25, 10, txt="TOTAL:", border=1, align="R")
+        pdf.cell(30, 10, txt=total_tag.cget("text").split(": ")[1], border=1, ln=True, align="R")
+        
         pdf.set_font("TimesNewRomanB", size=12)
         pdf.cell(0, 10, txt=f"In Words: {n2w_label.cget('text')}", ln=True, align="L")
 
-        pdf.set_font("TimesNewRoman", size=9)
+        pdf.set_font("TimesNewRoman", size=10)
         pdf.cell(0, 10, txt="Please acknowledge the receipt of the invoices and kindly release the payment at the earliest and oblige.", ln=True, align="L")
-        pdf.set_font("TimesNewRomanB", size=9)
+        pdf.set_font("TimesNewRomanB", size=10)
         pdf.cell(0, 10, txt="Terms & Conditions:", ln=True, align="L")
-        pdf.set_font("TimesNewRoman", size=9) 
+        pdf.set_font("TimesNewRoman", size=10) 
         pdf.cell(0, 10, txt="• All payments are to be made to RK Arts by Cheque/DD (Crossed Account Payee Only).", ln=True, align="L")
         pdf.cell(0, 10, txt="• Interest will be charged @ 2% per month after the due date.", ln=True, align="L")
 
-        pdf.set_font("TimesNewRomanB", size=12)  
-        pdf.cell(0, 10, txt="Firm Bank Details", ln=True, align="L")
-        pdf.set_font("TimesNewRoman", size=10) 
-        pdf.cell(0, 10, txt="A/C Name: RK Arts", ln=True, align="L")
-        pdf.cell(0, 10, txt="A/C No: 5742085338", ln=True, align="L")
-        pdf.cell(0, 10, txt="Bank: Central Bank Dharwad", ln=True, align="L")
-        pdf.cell(0, 10, txt="IFS Code: CBIN0283371", ln=True, align="L")
+        pdf.set_font("TimesNewRomanB", size=14)  
+        pdf.cell(60, 10, txt="Firm Bank Details", ln=True, border= 1, align="L")
+        pdf.set_font("TimesNewRoman", size=12) 
+        pdf.cell(60, 10, txt="A/C Name: RK Arts", ln=True, border= 1, align="L")
+        pdf.cell(60, 10, txt="A/C No: 5742085338", ln=True, border= 1, align="L")
+        pdf.cell(60, 10, txt="Bank: Central Bank Dharwad", ln=True, border=1, align="L")
+        pdf.cell(60, 10, txt="IFS Code: CBIN0283371", ln=True, border=1, align="L")
 
+        pdf.set_font("TimesNewRomanB", size=14)
+        pdf.cell(0, 10, txt="For: RK Arts", ln=False, align="R")
         pdf.set_font("TimesNewRomanB", size=12)
-        pdf.cell(0, 20, txt="For: RK Arts", ln=False, align="R")
-        pdf.cell(0, 10, txt="Proprietor", ln=True, align="R")  
+        pdf.cell(0, 60, txt="Proprietor", ln=True, align="R")  
 
 
         pdf.output(f"Invoice_{invoice_number}.pdf")
@@ -165,7 +176,7 @@ def export_to_pdf():
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
-                
+                            
 # tax invoice
 invoice = Label(window, text="(TAX INVOICE)", font=("Arial", 15))     # tax invoice 
 invoice.place(x=400, y=20, anchor="center")
