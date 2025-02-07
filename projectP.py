@@ -101,7 +101,7 @@ def export_to_pdf():
         pdf.cell(0, 5, txt="", ln=True)  
 
         pdf.set_font("TimesNewRoman", size=10)
-        pdf.cell(180, 0, txt=f"Date: {date:%b-%d-20%y}", ln=True, align="R")
+        pdf.cell(180, 0, txt=f"Date: {ddddate.get()}", ln=True, align="R")
         pdf.cell(140, 0, txt=f"Invoice No: {invoice_number}", ln=True, align="R")
         pdf.cell(0, 0, txt=f"To: {venue.get()}", ln=True, align="L")
         
